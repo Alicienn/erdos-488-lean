@@ -1,3 +1,5 @@
-import Erdos488.Statement
-import Erdos488.Disproof
-import Erdos488.CardLeTwo
+module
+
+public import Erdos488.Statement
+public import Erdos488.Disproof
+public import Erdos488.CardLeTwo

@@ -1,5 +1,9 @@
-import Erdos488.Statement
+module
+
+public import Erdos488.Statement
 import Mathlib.Tactic
+
+@[expose] public section
 
 /-!
 # Positive Resolution of Erdős Problem 488 for $|A| \le 2$
@@ -304,7 +308,7 @@ lemma nat_ineq_pair {a b n m : ℕ} (ha : 2 ≤ a) (hab : a < b) (hndvd : ¬ (a 
   exact Nat.lt_of_mul_lt_mul_right hmul
 
 /-- **Theorem (Positive Side):** Erdős Problem 488 holds unconditionally for all sets with `A.card ≤ 2`. -/
-theorem erdos_488_card_le_two (A : Finset ℕ) (hA : A.Nonempty) (hcard : A.card ≤ 2)
+theorem erdos_488_card_le_two_proof (A : Finset ℕ) (hA : A.Nonempty) (hcard : A.card ≤ 2)
     (h0 : 0 ∉ A) (h1 : 1 ∉ A) :
     letI B := {n ≥ 1 | ∃ a ∈ A, a ∣ n}
     ∀ᵉ (n : ℕ) (m > n), A.max ≤ n →

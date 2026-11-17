@@ -14,11 +14,14 @@ jobs:
       LEAN_NUM_THREADS: 1
     steps:
       - uses: actions/checkout@v5
+      - name: Check Palomar Lean module headers and line caps
+        run: python3 scripts/check-lean-sources.py
       - uses: leanprover/lean-action@v1
         with:
           leanchecker: true
-          leanchecker-args: "Erdos488"
+          leanchecker-args: "Erdos488 Solution"
           axiom-audit: true
+          axiom-audit-root: "Erdos488"
           axiom-audit-allow: "propext,Classical.choice,Quot.sound"
-      - name: Verify #print axioms output
+      - name: Verify #print axioms on Solution
         run: lake env lean CheckAxioms.lean

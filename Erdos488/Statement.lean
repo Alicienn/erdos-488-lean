@@ -3,9 +3,13 @@ Copyright 2025 The Formal Conjectures Authors.
 Adapted from `FormalConjectures/ErdosProblems/488.lean` in
 `google-deepmind/formal-conjectures` under the Apache License, Version 2.0.
 -/
-import Mathlib.Data.Finset.Max
-import Mathlib.Order.Interval.Finset.Nat
-import Mathlib.Data.Rat.Defs
+module
+
+public import Mathlib.Data.Finset.Max
+public import Mathlib.Order.Interval.Finset.Nat
+public import Mathlib.Data.Rat.Defs
+
+@[expose] public section
 
 /-!
 # Erdős Problem 488 — Exact Statement (matching Google DeepMind `formal-conjectures`)

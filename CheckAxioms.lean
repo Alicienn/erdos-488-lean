@@ -1,4 +1,6 @@
-import Erdos488
+module
+
+import Solution
 
 #check @Erdos488.not_erdos_488
 #print axioms Erdos488.not_erdos_488

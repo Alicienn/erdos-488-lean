@@ -1,8 +1,8 @@
 # Erdős Problem #488 — Complete Lean 4 Formal Resolution
 
 [![Lean Action CI](https://github.com/Alicienn/erdos-488-lean/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/Alicienn/erdos-488-lean/actions/workflows/lean_action_ci.yml)
-![Lean 4](https://img.shields.io/badge/Lean_4-v4.33.1-blue)
-![Mathlib](https://img.shields.io/badge/Mathlib-v4.33.1-informational)
+![Lean 4](https://img.shields.io/badge/Lean_4-v4.35.0--rc2-blue)
+![Mathlib](https://img.shields.io/badge/Mathlib-v4.35.0--rc2-informational)
 ![Sorry-Free](https://img.shields.io/badge/sorry-0-brightgreen)
 
 This repository provides a complete, **`sorry`-free, axiom-audited Lean 4 formalization** resolving **Erdős Problem #488** (posed by Paul Erdős in 1961), definitionally identical (`rfl`) to the formal statement in Google DeepMind's [`formal-conjectures`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/488.lean) repository.
@@ -43,10 +43,12 @@ def Erdos488Prop : Prop :=
 
 ## 2. Main Formalized Results
 
-| Declaration | File | Statement | Axioms |
-| :--- | :--- | :--- | :--- |
-| `Erdos488.not_erdos_488` | [`Erdos488/Disproof.lean`](Erdos488/Disproof.lean) | `¬ Erdos488Prop` | `[propext, Classical.choice, Quot.sound]` |
-| `Erdos488.erdos_488_card_le_two` | [`Erdos488/CardLeTwo.lean`](Erdos488/CardLeTwo.lean) | `Erdos488Prop` restricted to `A.card ≤ 2` | `[propext, Classical.choice, Quot.sound]` |
+| Declaration | Challenge / Solution | Proof Implementation | Statement | Axioms |
+| :--- | :--- | :--- | :--- | :--- |
+| `Erdos488.not_erdos_488` | [`Challenge.lean`](Challenge.lean) / [`Solution.lean`](Solution.lean) | [`Erdos488/Disproof.lean`](Erdos488/Disproof.lean) | `¬ Erdos488Prop` | `[propext, Classical.choice, Quot.sound]` |
+| `Erdos488.erdos_488_card_le_two` | [`Challenge.lean`](Challenge.lean) / [`Solution.lean`](Solution.lean) | [`Erdos488/CardLeTwo.lean`](Erdos488/CardLeTwo.lean) | `Erdos488Prop` for `A.card ≤ 2` | `[propext, Classical.choice, Quot.sound]` |
+
+This repository conforms to the [Palomar Registry](https://palomar-registry.org/) layout (`Challenge.lean`, `Solution.lean`, [`comparator.json`](comparator.json), and [`formalization.yaml`](formalization.yaml)).
 
 ---
 
@@ -99,4 +101,4 @@ LEAN_NUM_THREADS=1 lake env leanchecker Erdos488
 - **[Jiang+26]** E. H. Jiang, J. Zhang, et al., *Continual Graph Memory and Community Infrastructure for AI-Assisted Mathematical Discovery*, [arXiv:2610.02945](https://arxiv.org/abs/2610.02945) (Oct–Nov 2026) — prior informal smooth-number counterexample construction at $H = 2^{16}$.
 
 ### AI Assistance Disclosure
-In accordance with community guidelines on [`teorth/erdosproblems`](https://github.com/teorth/erdosproblems/blob/main/CONTRIBUTING.md), we disclose that the C/Python computational exploration, the discrete $H = 256$ finite-telescoping proof simplification, and the Lean 4 (`v4.33.1`) formalizations in this repository were developed using **Google Antigravity**. All mathematical claims in `Erdos488` are machine-checked without `sorry` by the Lean 4 kernel (`leanchecker` and `axiom-audit` enforced in CI).
+In accordance with community guidelines on [`teorth/erdosproblems`](https://github.com/teorth/erdosproblems/blob/main/CONTRIBUTING.md) and [Palomar](https://palomar-registry.org/), we disclose that the C/Python computational exploration, the discrete $H = 256$ finite-telescoping proof simplification, and the Lean 4 (`v4.35.0-rc2`) formalizations in this repository were developed using **Google Antigravity**. All mathematical claims in `Solution.lean` / `Erdos488` are machine-checked without `sorry` by the Lean 4 kernel (`leanchecker` and `axiom-audit` enforced in CI).

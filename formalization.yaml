@@ -1,0 +1,114 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Formal Resolution of Erdős Problem #488"
+  description: >-
+    Complete sorry-free Lean 4 formalization resolving Erdős Problem #488 (1961)
+    on the cumulative density doubling of sets of multiples, matching the exact
+    statement from Google DeepMind's formal-conjectures repository. We prove
+    both (1) Erdos488.not_erdos_488, refuting the general factor-2 conjecture
+    via a purely discrete 256-smooth finite-telescoping construction and exact
+    Euler totient fiber counting (requiring no real logarithms, simplex volume
+    integrals, or analytic Mertens bounds), where the witness A is also a
+    primitive set (divisibility antichain); and (2) Erdos488.erdos_488_card_le_two,
+    establishing unconditionally that Erdős's strict factor-2 inequality holds
+    whenever |A| <= 2.
+  authors:
+    - "Alicienn"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Alicienn"
+
+classification:
+  arxiv: ["math.NT", "math.CO"]
+  msc2020: ["11B05", "11N25", "05D05"]
+
+sources:
+  - title: "Continual Graph Memory and Community Infrastructure for AI-Assisted Mathematical Discovery"
+    authors:
+      - "Eric Hanchen Jiang"
+      - "Junyi Zhang"
+    id: "https://arxiv.org/abs/2610.02945"
+    type: "preprint"
+    location: "Section 4.2, Problem 488 (and results/erdos_488.md)"
+    relationship: "adapts"
+    note: >-
+      Prior informal refutation of Erdős Problem #488 using 65536-smooth
+      minimal multiples, continuous simplex volume estimates, and analytic
+      Mertens bounds. Our Lean 4 disproof compresses the smoothness threshold
+      to H = 256, replaces continuous simplex volume stability by discrete
+      prime-factorization box bounds and finite pigeonhole telescoping over
+      3500 dyadic scales, uses m = (2n)! * Q for elementary factorial
+      divisibility, and additionally proves the complementary positive theorem
+      for |A| <= 2.
+    license: "CC-BY-4.0"
+    author_endorsement: "not-contacted"
+  - title: "Some unsolved problems"
+    authors:
+      - "Paul Erdős"
+    id: "https://www.erdosproblems.com/488"
+    type: "article"
+    location: "Magyar Tud. Akad. Mat. Kutató Int. Közl. 6 (1961), 221-254, p. 236; corrected in Mat. Lapok 17 (1966), p. 150"
+    relationship: "background"
+    note: "Original problem formulation by Paul Erdős, curated by Thomas F. Bloom on erdosproblems.com/488."
+    author_endorsement: "n/a"
+
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/488.lean"
+    relationship: "builds-on"
+    note: "Challenge.lean reproduces verbatim the formal statement of Erdős Problem #488 from google-deepmind/formal-conjectures (Apache-2.0)."
+
+status:
+  scope: >-
+    Both advertised theorems in Challenge.lean are proved in full in Solution.lean
+    with zero sorrys and only the three standard Lean axioms: Erdos488.not_erdos_488
+    disproves the exact universal statement of Erdős Problem #488 (with a witness
+    set A that is also a divisibility antichain), and Erdos488.erdos_488_card_le_two
+    proves the exact statement under the sole added hypothesis A.card <= 2.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Gemini 4 Carbon (Medium)"]
+      framework: "Google Antigravity"
+      tool_setup: "C/Python computational exploration, Lean 4 (v4.35.0-rc2) + Mathlib interactive compilation, leanchecker, and independent adversarial referee subagent audit"
+      cost:
+        wall_time: "2 hours"
+        spend_usd: "subscription-based"
+        hardware: "local Windows workstation (16 CPU threads)"
+      prompting_notes: "Interactive mathematical investigation of Erdős Problem #488 followed by discrete proof design, full Lean 4 formalization, and adversarial soundness/alignment review."
+  spend_usd: "subscription-based"
+  notes: "Human-directed agentic workflow with local C/Python verification scripts, Lean 4 kernel checking, and independent statement-alignment audit."
+
+fidelity:
+  divergences: "none known"
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Alicienn"
+  notes: >-
+    Verified definition-for-definition (by rfl) against upstream
+    FormalConjectures/ErdosProblems/488.lean, audited with set_option pp.all true
+    to confirm rational division in Q and non-vacuous WithBot Nat maximum bounds,
+    and checked with leanchecker and axiom-audit.
+
+alignment:
+  namespace: "Erdos488"
+  statements:
+    - source: "Erdős Problem #488 (negation of universal inequality, adapting arXiv:2610.02945)"
+      lean: "Erdos488.not_erdos_488"
+      module: "Challenge"
+      status: "proved"
+      note: "Exact negation of the formal-conjectures statement of Erdős Problem #488."
+    - source: "Erdős Problem #488 restricted to sets of cardinality at most 2"
+      lean: "Erdos488.erdos_488_card_le_two"
+      module: "Challenge"
+      status: "proved"
+      note: "Exact formal-conjectures statement under the additional hypothesis A.card <= 2."
+
+acknowledgements: "Mathlib community, Thomas F. Bloom and Terence Tao (erdosproblems.com), Google DeepMind Formal Conjectures authors, and E. H. Jiang, J. Zhang, et al. (arXiv:2610.02945)."

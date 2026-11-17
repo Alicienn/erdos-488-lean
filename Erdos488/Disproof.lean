@@ -1,7 +1,11 @@
-import Erdos488.Statement
-import Mathlib.Data.Nat.Totient
-import Mathlib.Data.Nat.Factorization.Basic
-import Mathlib.Tactic
+module
+
+public import Erdos488.Statement
+public import Mathlib.Data.Nat.Totient
+public import Mathlib.Data.Nat.Factorization.Basic
+public import Mathlib.Tactic
+
+@[expose] public section
 
 /-!
 # Complete Formal Disproof of Erdős Problem 488 in Lean 4
@@ -616,7 +620,7 @@ lemma lower_bound_at_m {N : ℕ} (hN : 8 ≤ N) :
 
 /-- **Main Theorem (Complete Formal Disproof of Erdős Problem 488):**
 The universal inequality in `Erdos488Prop` is false. -/
-theorem not_erdos_488 : ¬ Erdos488Prop := by
+theorem not_erdos_488_proof : ¬ Erdos488Prop := by
   intro hErdos
   obtain ⟨j, hj1, _, hscale⟩ := exists_good_scale
   let N := 8 * j
