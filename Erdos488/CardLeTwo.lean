@@ -1,4 +1,5 @@
 import Erdos488.Statement
+import Mathlib.Tactic
 
 /-!
 # Positive Resolution of Erdős Problem 488 for $|A| \le 2$

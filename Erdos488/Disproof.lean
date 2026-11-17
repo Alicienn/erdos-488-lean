@@ -1,4 +1,7 @@
 import Erdos488.Statement
+import Mathlib.Data.Nat.Totient
+import Mathlib.Data.Nat.Factorization.Basic
+import Mathlib.Tactic
 
 /-!
 # Complete Formal Disproof of Erdős Problem 488 in Lean 4

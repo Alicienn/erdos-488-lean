@@ -1,9 +1,11 @@
+/-
+Copyright 2025 The Formal Conjectures Authors.
+Adapted from `FormalConjectures/ErdosProblems/488.lean` in
+`google-deepmind/formal-conjectures` under the Apache License, Version 2.0.
+-/
 import Mathlib.Data.Finset.Max
 import Mathlib.Order.Interval.Finset.Nat
 import Mathlib.Data.Rat.Defs
-import Mathlib.Data.Nat.Totient
-import Mathlib.Data.Nat.Factorization.Basic
-import Mathlib.Tactic
 
 /-!
 # Erdős Problem 488 — Exact Statement (matching Google DeepMind `formal-conjectures`)
@@ -16,7 +18,6 @@ $$\frac{|B \cap [1, m]|}{m} < 2 \frac{|B \cap [1, n]|}{n}.$$
 
 namespace Erdos488
 
-open scoped Classical in
 /-- The exact statement of Erdős Problem 488 from `FormalConjectures/ErdosProblems/488.lean`. -/
 def Erdos488Prop : Prop :=
   ∀ (A : Finset ℕ), A.Nonempty →
