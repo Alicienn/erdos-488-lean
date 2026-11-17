@@ -16,9 +16,16 @@ We formalize **both sides** of the phenomenon:
 ## 1. Problem Statement
 
 Let $A \subset \mathbb{Z}_{\ge 2}$ be a finite non-empty set of integers, and let
-$$B = \{k \ge 1 : \exists a \in A,\ a \mid k\}$$
+
+$$
+B = \lbrace k \ge 1 : \exists a \in A,\ a \mid k \rbrace
+$$
+
 be its set of multiples. Erdős ([Er61, p. 236], [Er66, p. 150], [erdosproblems.com/488](https://www.erdosproblems.com/488)) asked whether for all integers $m > n \ge \max(A)$,
-$$\frac{|B \cap [1, m]|}{m} < 2\,\frac{|B \cap [1, n]|}{n}.$$
+
+$$
+\frac{|B \cap [1, m]|}{m} < 2\,\frac{|B \cap [1, n]|}{n}.
+$$
 
 In [`Erdos488/Statement.lean`](Erdos488/Statement.lean) (importing only minimal `Finset`/`Rat` definitions), we reproduce verbatim the statement from `FormalConjectures/ErdosProblems/488.lean`:
 
@@ -49,21 +56,22 @@ def Erdos488Prop : Prop :=
 An informal smooth-number refutation at smoothness scale $H = 2^{16} = 65536$ was recently reported in Jiang, Zhang, et al. ([arXiv:2610.02945](https://arxiv.org/abs/2610.02945), Oct–Nov 2026) using continuous simplex volume bounds over $\log_2 p_i$ and analytic Mertens estimates. Here we compress the smoothness threshold down to **$H = 256 = 2^8$** ($53$ odd primes) and eliminate all real analysis:
 
 1. **Box Bound via Prime Factorization (`oddSmooth_pow_two_le`):** Let $O(y)$ denote the set of odd $256$-smooth integers in $[1, y]$. Injecting $w \in O(2^T)$ into exponent tuples `Fin 53 → Fin (T + 1)` via `Nat.factorization` yields $|O(2^T)| \le (T + 1)^{53}$.
-2. **Finite Pigeonhole Telescoping (`exists_good_scale`):** Since $5^{3500} \cdot 28009^{53} < 6^{3500}$ (`norm_num`), the inequality $5\,|O(2^{8(j+1)})| > 6\,|O(2^{8j})|$ cannot hold for every $j \in \{1, \dots, 3500\}$. Hence there exists $j \in [1, 3500]$ with $x = 2^{8j} \ge 256$ satisfying
-   $$5\,|O(256 x)| \le 6\,|O(x)|.$$
-3. **Sparse Dyadic Antichain at $n = 256 x$ (`upper_bound_at_n`):** Define $A = \{a \in [x, 2x) : a \text{ is } 256\text{-smooth}\}$. Because $A$ is supported in a single dyadic interval $[x, 2x)$, $A$ is automatically a **primitive set** (no element divides another). If $t \in [1, 256 x]$ is divisible by $a \in A$ ($t = aq$), then $1 \le q \le 256$, so every prime factor of $q$ is automatically $\le 256$. Hence $t$ itself is $256$-smooth in $[x, 256 x]$. Writing $t = 2^e w$ with $w \in O(n)$ admits at most $9$ exponents $e$ per odd core $w$ (as $2^9 = 512 > 256$), giving $|B \cap [1, n]| \le 9\,|O(n)|$, whence $5\,|B \cap [1, n]| \le 54\,|O(x)|$.
-4. **Exact Totient Unfolding at $m = (2n)!\cdot Q$ (`lower_bound_at_m`):** Let $Q = \prod_{p \text{ odd} \le 256} p$. For each $w \in O(x)$, its unique dyadic lift $a_w = 2^{e(w)} w \in [x, 2x)$ lies in $A$ and satisfies $a_w < 2n$, so $a_w \mid (2n)!$ (`Nat.dvd_factorial`) and $a_w Q \mid m$. The fibers
-   $$T_w = \{a_w u : 1 \le u \le m / a_w,\ \gcd(u, Q) = 1\} \subseteq B \cap [1, m]$$
-   are pairwise disjoint across $w \in O(x)$ and each has exact cardinality $\frac{m}{a_w Q}\varphi(Q) > \frac{m\,\varphi(Q)}{2x Q}$.
+2. **Finite Pigeonhole Telescoping (`exists_good_scale`):** Since $5^{3500} \cdot 28009^{53} < 6^{3500}$ (`norm_num`), the inequality $5\,|O(2^{8(j+1)})| > 6\,|O(2^{8j})|$ cannot hold for every $j \in \lbrace 1, \dots, 3500 \rbrace$. Hence there exists $j \in [1, 3500]$ with $x = 2^{8j} \ge 256$ satisfying $5\,|O(256 x)| \le 6\,|O(x)|$.
+3. **Sparse Dyadic Antichain at $n = 256 x$ (`upper_bound_at_n`):** Define $A = \lbrace a \in [x, 2x) : a \text{ is } 256\text{-smooth} \rbrace$. Because $A$ is supported in a single dyadic interval $[x, 2x)$, $A$ is automatically a **primitive set** (no element divides another). If $t \in [1, 256 x]$ is divisible by $a \in A$ ($t = aq$), then $1 \le q \le 256$, so every prime factor of $q$ is automatically $\le 256$. Hence $t$ itself is $256$-smooth in $[x, 256 x]$. Writing $t = 2^e w$ with $w \in O(n)$ admits at most $9$ exponents $e$ per odd core $w$ (as $2^9 = 512 > 256$), giving $|B \cap [1, n]| \le 9\,|O(n)|$, whence $5\,|B \cap [1, n]| \le 54\,|O(x)|$.
+4. **Exact Totient Unfolding at $m = (2n)!\cdot Q$ (`lower_bound_at_m`):** Let $Q = \prod_{p \text{ odd} \le 256} p$. For each $w \in O(x)$, its unique dyadic lift $a_w = 2^{e(w)} w \in [x, 2x)$ lies in $A$ and satisfies $a_w < 2n$, so $a_w \mid (2n)!$ (`Nat.dvd_factorial`) and $a_w Q \mid m$. The fibers $T_w = \lbrace a_w u : 1 \le u \le m / a_w,\ \gcd(u, Q) = 1 \rbrace \subseteq B \cap [1, m]$ are pairwise disjoint across $w \in O(x)$ and each has exact cardinality $\frac{m}{a_w Q}\varphi(Q) > \frac{m\,\varphi(Q)}{2x Q}$.
 5. **Exact Arithmetic Contradiction:** Evaluating $216\,Q < 1280\,\varphi(Q)$ (`decide`) combines the two bounds into $2\,|B \cap [1, n]|\,m < |B \cap [1, m]|\,n$.
 
 ### 3.2. Why Small Searches Never See Counterexamples (`Erdos488/CardLeTwo.lean` & `scripts/`)
 At small cardinalities, adding generators *rigidifies* the density rather than destabilizing it:
-- For $|A| = 1$, $\sup_{m > n \ge M} R(\{M\}, n, m) = 2 - \frac{1}{M}$ (attained at $n = 2M-1, m = 2M$).
-- For $|A| \le 2$ (all $M = \max(A) \ge 2$), we prove $R(A, n, m) < 2$ unconditionally in Lean 4 via strong induction on $n$ with period $\operatorname{lcm}(a, b)$. Moreover, exact-rational full-period computation (`scripts/verify_extremal_small_card.py`, verified for $4 \le M \le 35$; for $M = 3$, $A = \{2, 3\}$ attains $49/40$) shows that the maximum over primitive pairs is strictly smaller than the singleton bound:
-  $$R_{\max}^{(2)}(M) = \frac{(2M - 3)^2}{2(M - 1)^2} = 2 - \frac{2}{M} + O(M^{-2}),$$
-  attained algebraically for all $M \ge 4$ at $A = \{M-1, M\}$, $n = 2M-3$, $m = (M-1)^2$ (just prior to the first LCM collision $M(M-1)$).
-- For $|A| = 3$ (verified over full periods for $9 \le M \le 18$), the extremal primitive triple $\{M-2, M-1, M\}$ splits by parity of $M$: $m^* = (M-2)^2$ for odd $M$ ($R = 2 - \frac{3}{M} + O(M^{-2})$) and $m^* = (M-2)^2 / 2$ for even $M$ ($R = 2 - \frac{11}{3M} + O(M^{-2})$).
+- For $|A| = 1$, $\sup_{m > n \ge M} R(\lbrace M \rbrace, n, m) = 2 - \frac{1}{M}$ (attained at $n = 2M-1, m = 2M$).
+- For $|A| \le 2$ (all $M = \max(A) \ge 2$), we prove $R(A, n, m) < 2$ unconditionally in Lean 4 via strong induction on $n$ with period $\mathrm{lcm}(a, b)$. Moreover, exact-rational full-period computation (`scripts/verify_extremal_small_card.py`, verified for $4 \le M \le 35$; for $M = 3$, $A = \lbrace 2, 3 \rbrace$ attains $49/40$) shows that the maximum over primitive pairs is strictly smaller than the singleton bound:
+
+$$
+R_{\max}^{(2)}(M) = \frac{(2M - 3)^2}{2(M - 1)^2} = 2 - \frac{2}{M} + O(M^{-2}),
+$$
+
+  attained algebraically for all $M \ge 4$ at $A = \lbrace M-1, M \rbrace$, $n = 2M-3$, $m = (M-1)^2$ (just prior to the first LCM collision $M(M-1)$).
+- For $|A| = 3$ (verified over full periods for $9 \le M \le 18$), the extremal primitive triple $\lbrace M-2, M-1, M \rbrace$ splits by parity of $M$: $m^* = (M-2)^2$ for odd $M$ ($R = 2 - \frac{3}{M} + O(M^{-2})$) and $m^* = (M-2)^2 / 2$ for even $M$ ($R = 2 - \frac{11}{3M} + O(M^{-2})$).
 
 ---
 
