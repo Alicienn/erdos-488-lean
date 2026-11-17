@@ -1,0 +1,24 @@
+name: Lean Action CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      LEAN_NUM_THREADS: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          leanchecker: true
+          leanchecker-args: "Erdos488"
+          axiom-audit: true
+          axiom-audit-allow: "propext,Classical.choice,Quot.sound"
+      - name: Verify #print axioms output
+        run: lake env lean CheckAxioms.lean
