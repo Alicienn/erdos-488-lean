@@ -8,6 +8,7 @@ module
 public import Mathlib.Data.Finset.Max
 public import Mathlib.Order.Interval.Finset.Nat
 public import Mathlib.Data.Rat.Defs
+public import Mathlib.Algebra.Order.Monoid.Unbundled.WithTop
 
 @[expose] public section
 
